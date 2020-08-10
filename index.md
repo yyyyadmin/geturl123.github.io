@@ -1,37 +1,51 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/yyyyadmin/t.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/yyyyadmin/t.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+<h4 id="msg">加载中...</h4><script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script>
+  function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (pair[0] == variable) {
+        return pair[1]
+      }
+    }
+    return (false)
+  }
+  var dwz = getQueryVariable("d");
+  if (dwz) {
+    var ojbk = false;
+    try {
+      var gotoDomain = function() {
+        if (!ojbk) {
+          $.ajax({
+            type: "get",
+            async: false,
+            url: "https://dy.XXXXXXX.cn/ss/douyin/"+dwz+"/to",
+            dataType: "text",
+            success: function(longurl) {
+              if (!ojbk) {
+                ojbk = true;
+                var gotoUrl = longurl;
+                window.location.replace(gotoUrl)
+              }
+            },
+            error: function() {
+              if (!ojbk) {
+                ojbk = true;
+                $("#msg").html("获取最新域名失败")
+              }
+            }
+          })
+        }
+      };
+      gotoDomain();
+      setInterval(gotoDomain, 2000)
+    } catch(err) {
+      ojbk = true;
+      $("#msg").html("发生错误了");
+      alert(err)
+    }
+  } else {
+    $("#msg").html("无效的数据")
+  };
+</script>
